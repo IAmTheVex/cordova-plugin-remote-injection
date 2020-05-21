@@ -6,7 +6,6 @@
 #import <WebKit/WebKit.h>
 
 #import "CDVRemoteInjection.h"
-#import "CDVRemoteInjectionUIWebViewDelegate.h"
 #import "CDVRemoteInjectionWKWebViewDelegate.h"
 
 @implementation CDVRemoteInjectionPlugin {
@@ -81,23 +80,10 @@
     }
 
     id webView = [self findWebView];
-    if ([webView isKindOfClass:[UIWebView class]]) {
-        NSLog(@"Found UIWebView");
-        webViewDelegate = [[CDVRemoteInjectionUIWebViewDelegate alloc] init];
-        [webViewDelegate initializeDelegate:self];
-        
-        return;
-    } else if ([webView isKindOfClass:[WKWebView class]]) {
-        NSLog(@"Found WKWebView");
-        webViewDelegate = [[CDVRemoteInjectionWKWebViewDelegate alloc] init];
-        [webViewDelegate initializeDelegate:self];
-        
-        return;
-    } else {
-        NSLog(@"Not a supported web view implementation");
-    }
+    NSLog(@"Found WKWebView");
+    webViewDelegate = [[CDVRemoteInjectionWKWebViewDelegate alloc] init];
+    [webViewDelegate initializeDelegate:self];
 }
-
 /*
  Holy crap these APIs are verbose...
  */
