@@ -80,9 +80,16 @@
     }
 
     id webView = [self findWebView];
-    NSLog(@"Found WKWebView");
-    webViewDelegate = [[CDVRemoteInjectionWKWebViewDelegate alloc] init];
-    [webViewDelegate initializeDelegate:self];
+ 
+    if ([webView isKindOfClass:[WKWebView class]]) {
+        NSLog(@"Found WKWebView!");
+        webViewDelegate = [[CDVRemoteInjectionWKWebViewDelegate alloc] init];
+        [webViewDelegate initializeDelegate:self];
+        
+        return;
+    } else {
+        NSLog(@"No supported web view implementation was found!");
+    }
 }
 /*
  Holy crap these APIs are verbose...
